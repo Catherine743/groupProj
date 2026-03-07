@@ -1,0 +1,220 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f0f4ff, #e6ecff);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.logo {
+  color: #4a6cf7;
+  margin: 0;
+}
+
+.nav-links a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #4a6cf7;
+}
+
+.nav-links .active {
+  color: #4a6cf7;
+  border-bottom: 2px solid #4a6cf7;
+}
+
+/* Layout */
+.app-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* Card */
+.card, .dashboard-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+/* Inputs */
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+input:focus, select:focus {
+  border-color: #4a6cf7;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74,108,247,0.15);
+}
+
+/* Buttons */
+button {
+  padding: 12px;
+  margin-top: 10px;
+  background: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #3b57d0;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+th {
+  background: #4a6cf7;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+  background: #f7f9ff;
+}
+
+/* Low stock */
+.low-stock {
+  color: red;
+  font-weight: bold;
+}
+
+/* Messages */
+.success {
+  color: green;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.logo{
+  margin-bottom:30px;
+}
+
+.nav-links{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:#cbd5f5;
+  padding:10px;
+  border-radius:5px;
+}
+
+.nav-links a:hover{
+  background:#334155;
+}
+
+.active{
+  background:#3b82f6;
+  color:white !important;
+}
+
+/* Layout */
+.layout{
+  display:flex;
+}
+
+/* Sidebar */
+.sidebar{
+  width:220px;
+  background:#1e293b;
+  color:white;
+  padding:20px;
+}
+
+/* Main Content */
+.main-content{
+  flex:1;
+  padding:30px;
+  background:#f8fafc;
+  min-height:100vh;
+}
+
+/* Login Page */
+
+.login-container{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#4a6cf7,#7c8df8);
+}
+
+.login-card{
+  width:350px;
+  background:white;
+  padding:40px;
+  border-radius:15px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+  text-align:center;
+}
+
+.login-title{
+  color:#4a6cf7;
+  margin-bottom:5px;
+}
+
+.login-subtitle{
+  color:#777;
+  margin-bottom:20px;
+}
+
+.login-card input{
+  margin-bottom:15px;
+}
+
+.login-card button{
+  width:100%;
+}
