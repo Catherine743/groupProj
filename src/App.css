@@ -1,4 +1,3 @@
-/* Global */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -17,65 +16,35 @@ body {
 
 .logo {
   color: #4a6cf7;
-  margin: 0 0 30px 0;
-  cursor: pointer;
-}
-
-.logo-link{
-  text-decoration:none;
-}
-
-.nav-links {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  margin: 0;
 }
 
 .nav-links a {
+  margin-left: 20px;
   text-decoration: none;
-  color: #cbd5f5;
-  padding: 10px;
-  border-radius: 5px;
+  color: #555;
+  font-weight: 500;
   transition: 0.3s;
 }
 
 .nav-links a:hover {
-  background: #334155;
+  color: #4a6cf7;
 }
 
-.active {
-  background: #3b82f6;
-  color: white !important;
+.nav-links .active {
+  color: #4a6cf7;
+  border-bottom: 2px solid #4a6cf7;
 }
 
 /* Layout */
-.layout {
-  display: flex;
-}
-
-.sidebar {
-  width: 220px;
-  background: #1e293b;
-  color: white;
-  padding: 20px;
-}
-
-.main-content {
-  flex: 1;
-  padding: 30px;
-  background: #f8fafc;
-  min-height: 100vh;
-}
-
 .app-container {
   max-width: 1100px;
   margin: 40px auto;
   padding: 20px;
 }
 
-/* Cards */
-.card,
-.dashboard-card {
+/* Card */
+.card, .dashboard-card {
   background: white;
   padding: 25px;
   border-radius: 15px;
@@ -89,8 +58,7 @@ body {
 }
 
 /* Inputs */
-input,
-select {
+input, select {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
@@ -100,8 +68,7 @@ select {
   transition: 0.2s;
 }
 
-input:focus,
-select:focus {
+input:focus, select:focus {
   border-color: #4a6cf7;
   outline: none;
   box-shadow: 0 0 0 3px rgba(74,108,247,0.15);
@@ -168,94 +135,166 @@ tr:hover {
   font-weight: bold;
 }
 
+
+
+.logo{
+  margin-bottom:30px;
+}
+
+.nav-links{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:#cbd5f5;
+  padding:10px;
+  border-radius:5px;
+}
+
+.nav-links a:hover{
+  background:#334155;
+}
+
+.active{
+  background:#3b82f6;
+  color:white !important;
+}
+
+/* Layout */
+.layout{
+  display:flex;
+}
+
+/* Sidebar */
+.sidebar{
+  width:220px;
+  background:#1e293b;
+  color:white;
+  padding:20px;
+}
+
+/* Main Content */
+.main-content{
+  flex:1;
+  padding:30px;
+  background:#f8fafc;
+  min-height:100vh;
+}
+
+
 /* Landing Page */
-.landing-container {
-  min-height: 100vh;
+
+.landing-container{
+  min-height:100vh;
   background: linear-gradient(135deg,#0f4c81,#1e90ff,#63b3ff);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:40px;
+  font-family:'Segoe UI', sans-serif;
 }
 
 /* Hero Section */
-.hero-section {
-  text-align: center;
-  color: white;
-  margin-bottom: 70px;
+
+.hero-section{
+  text-align:center;
+  color:white;
+  max-width:900px;
+  margin-bottom:70px;
 }
 
-.hero-section h1 {
-  font-size: 50px;
-  margin-bottom: 20px;
-  font-weight: 700;
-  letter-spacing: 1px;
+.hero-section h1{
+  font-size:50px;
+  margin-bottom:20px;
+  font-weight:700;
+  letter-spacing:1px;
 }
 
-.hero-section p {
-  font-size: 20px;
-  line-height: 1.7;
-  margin-bottom: 35px;
-  opacity: 0.95;
+.hero-section p{
+  font-size:20px;
+  line-height:1.7;
+  margin-bottom:35px;
+  opacity:0.95;
 }
 
-/* Start Button */
-.start-btn {
-  padding: 15px 40px;
-  font-size: 18px;
-  border: none;
-  border-radius: 40px;
-  background: white;
-  color: #0f4c81;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+/* Get Started Button */
+
+.start-btn{
+  padding:15px 40px;
+  font-size:18px;
+  border:none;
+  border-radius:40px;
+  background:white;
+  color:#0f4c81;
+  font-weight:bold;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
 }
 
-.start-btn:hover {
-  transform: translateY(-4px);
-  background: #f2f6ff;
+.start-btn:hover{
+  transform:translateY(-4px);
+  background:#f2f6ff;
+}
+
+/* Features Section */
+
+.features-section{
+  display:flex;
+  justify-content:center;
+  gap:35px;
+  flex-wrap:wrap;
 }
 
 /* Feature Cards */
-.features-section {
-  display: flex;
-  justify-content: center;
-  gap: 35px;
-  flex-wrap: wrap;
+
+.feature-card{
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  border-radius:15px;
+  padding:30px;
+  width:270px;
+  text-align:center;
+  color:white;
+  border:1px solid rgba(255,255,255,0.2);
+  transition:0.3s;
 }
 
-.feature-card {
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 30px;
-  width: 270px;
-  text-align: center;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.2);
-  transition: 0.3s;
+.feature-card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 12px 30px rgba(0,0,0,0.25);
 }
 
-.feature-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+.feature-card h3{
+  margin-bottom:15px;
+  font-size:22px;
 }
 
-.feature-card h3 {
-  margin-bottom: 15px;
-  font-size: 22px;
+.feature-card p{
+  font-size:15px;
+  line-height:1.6;
 }
 
-.feature-card p {
-  font-size: 15px;
-  line-height: 1.6;
+.landing-main{
+  width:100%;
 }
 
-/* Chart focus fix */
-.chart:focus,
+.logo-link{
+  text-decoration:none;
+}
+
+.logo{
+  color:white;
+  cursor:pointer;
+  margin-bottom:30px;
+}
+.chart:focus {
+  outline: none;
+}
 .chart *:focus {
   outline: none;
 }
