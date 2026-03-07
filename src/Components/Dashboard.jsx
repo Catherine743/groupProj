@@ -53,17 +53,17 @@ export default function Dashboard() {
     const topItems = [];
     for (let i = 0; i < sorted.length; i++) {
       if (i < N) topItems.push(sorted[i]);
-      else if (sortType === "top5" && sorted[i].quantity === sorted[N-1].quantity) topItems.push(sorted[i]);
-      else if (sortType === "bottom5" && sorted[i].quantity === sorted[N-1].quantity) topItems.push(sorted[i]);
-      else if (sortType === "revenue" && sorted[i].revenue === sorted[N-1].revenue) topItems.push(sorted[i]);
+      else if (sortType === "top5" && sorted[i].quantity === sorted[N - 1].quantity) topItems.push(sorted[i]);
+      else if (sortType === "bottom5" && sorted[i].quantity === sorted[N - 1].quantity) topItems.push(sorted[i]);
+      else if (sortType === "revenue" && sorted[i].revenue === sorted[N - 1].revenue) topItems.push(sorted[i]);
       else break;
     }
     return topItems;
   }, [salesDataForMonth, sortType]);
 
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AA336A"];
-  const mostSold = salesDataForMonth.sort((a,b)=>b.quantity-b.quantity)[0] || null;
-  const leastSold = salesDataForMonth.sort((a,b)=>a.quantity-b.quantity)[0] || null;
+  const mostSold = salesDataForMonth.sort((a, b) => b.quantity - b.quantity)[0] || null;
+  const leastSold = salesDataForMonth.sort((a, b) => a.quantity - b.quantity)[0] || null;
   const profit = totalRevenue * 0.2;
 
   return (
@@ -71,25 +71,27 @@ export default function Dashboard() {
       <h2>📊 Smart Analytics Dashboard</h2>
       <p>Total Products: {products.length}</p>
       <p>Total Revenue: ₹{totalRevenue}</p>
-      <p>Monthly Revenue ({selectedMonth+1}/{selectedYear}): ₹{monthlyRevenue}</p>
+      <p>Monthly Revenue ({selectedMonth + 1}/{selectedYear}): ₹{monthlyRevenue}</p>
       <div>
         <label>Select Month:</label>
-        <select value={selectedMonth} onChange={e=>setSelectedMonth(Number(e.target.value))}>
-          {Array.from({length:12}).map((_,i)=><option key={i} value={i}>{new Date(0,i).toLocaleString('default',{month:'long'})}</option>)}
+        <select value={selectedMonth} onChange={e => setSelectedMonth(Number(e.target.value))}>
+          {Array.from({ length: 12 }).map((_, i) => <option key={i} value={i}>{new Date(0, i).toLocaleString('default', { month: 'long' })}</option>)}
         </select>
-        <input type="number" value={selectedYear} min="2000" max="2100" onChange={e=>setSelectedYear(Number(e.target.value))}/>
+        <input type="number" value={selectedYear} min="2000" max="2100" onChange={e => setSelectedYear(Number(e.target.value))} />
       </div>
       <p>Estimated Profit (20%): ₹{profit.toFixed(2)}</p>
       {mostSold && <p>📈 Most Sold: {mostSold.name} ({mostSold.quantity})</p>}
       {leastSold && <p>📦 Least Sold: {leastSold.name} ({leastSold.quantity})</p>}
-      <hr/>
+      <hr />
+      
       <h3>🔎 Sort Products</h3>
-      <select onChange={(e)=>setSortType(e.target.value)}>
+      <select onChange={(e) => setSortType(e.target.value)}>
         <option value="top5">Top 5 by Quantity</option>
         <option value="bottom5">Bottom 5 by Quantity</option>
         <option value="revenue">Top 5 by Revenue</option>
       </select>
-      <hr/>
+      <hr />
+
       <h3>📊 Sales Chart</h3>
       <BarChart width={500} height={300} data={sortedData}>
         <XAxis dataKey="name" />
@@ -97,11 +99,12 @@ export default function Dashboard() {
         <Tooltip />
         <Bar dataKey="quantity" />
       </BarChart>
-      <hr/>
+      <hr />
+
       <h3>🥧 Revenue Distribution</h3>
       <PieChart width={500} height={350}>
         <Pie data={sortedData} dataKey="revenue" nameKey="name" outerRadius={120} label>
-          {sortedData.map((entry,index)=><Cell key={index} fill={COLORS[index%COLORS.length]}/>)}
+          {sortedData.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]} />)}
         </Pie>
         <Legend />
         <Tooltip />

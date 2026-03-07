@@ -1,40 +1,29 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { deleteProduct, setProducts } from "../redux/slice/stockSlice";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { deleteProduct } from "../redux/slice/stockSlice";
 
 function ViewProducts() {
-    const { products, threshold } = useSelector((state) => state.stockReducer);
+    const { products, threshold } = useSelector(
+        (state) => state.stockReducer
+    );
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-
     const [filter, setFilter] = useState("");
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
+    const dispatch = useDispatch();
 
-    // Load products from localStorage on component mount
-    useEffect(() => {
-        const storedProducts = localStorage.getItem("products");
-        if (storedProducts) {
-            dispatch(setProducts(JSON.parse(storedProducts)));
-        }
-    }, [dispatch]);
-
-    // Persist products to localStorage whenever products change
-    useEffect(() => {
-        localStorage.setItem("products", JSON.stringify(products));
-    }, [products]);
-
-    const filteredProducts = products.filter((product) => {
+    const filteredProducts = products.filter(product => {
         const pMin = product.minPrice;
         const pMax = product.maxPrice;
         const fMin = minPrice ? parseInt(minPrice) : 0;
         const fMax = maxPrice ? parseInt(maxPrice) : Infinity;
 
-        // Price range overlap
+        // Only include products that **overlap** with the filter range
         const isOverlap = pMax >= fMin && pMin <= fMax;
 
-        // Search filter
+        // Apply search filter
         const matchesSearch = product.name.toLowerCase().includes(filter.toLowerCase());
 
         return isOverlap && matchesSearch;
@@ -100,13 +89,18 @@ function ViewProducts() {
                                         Sell
                                     </button>
 
-                                    <button onClick={() => navigate(`/edit/${product.id}`)}>
+                                    <button
+                                        onClick={() => navigate(`/edit/${product.id}`)}
+                                    >
                                         Edit
                                     </button>
 
-                                    <button onClick={() => dispatch(deleteProduct(product.id))}>
+                                    <button
+                                        onClick={() => dispatch(deleteProduct(product.id))}
+                                    >
                                         Delete
                                     </button>
+
                                 </div>
                             </td>
                         </tr>
