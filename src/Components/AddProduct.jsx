@@ -9,12 +9,13 @@ function AddProduct() {
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const [stock, setStock] = useState("");
 
   const handleSubmit = () => {
 
-    if (!name || !price || !stock ) {
+    if (!name || !minPrice || !maxPrice || !stock) {
       alert("Please fill all fields");
       return;
     }
@@ -23,14 +24,15 @@ function AddProduct() {
       addProduct({
         id: Date.now(),
         name,
-        price: Number(price),
+        minPrice: Number(minPrice),
+        maxPrice: Number(maxPrice),
         stock: Number(stock),
+        sold: 0
       })
     );
 
-    alert("Product Added Successfully");
-
-    navigate("/");
+    // Navigate to products page
+    navigate("/products");
   };
 
   return (
@@ -46,9 +48,16 @@ function AddProduct() {
 
       <input
         type="number"
-        placeholder="Price"
-        value={price}
-        onChange={(e)=>setPrice(e.target.value)}
+        placeholder="Min Price"
+        value={minPrice}
+        onChange={(e)=>setMinPrice(e.target.value)}
+      />
+
+      <input
+        type="number"
+        placeholder="Max Price"
+        value={maxPrice}
+        onChange={(e)=>setMaxPrice(e.target.value)}
       />
 
       <input
@@ -58,7 +67,9 @@ function AddProduct() {
         onChange={(e)=>setStock(e.target.value)}
       />
 
-      <button onClick={handleSubmit}>Add Product</button>
+      <button onClick={handleSubmit}>
+        Add Product
+      </button>
 
     </div>
   );

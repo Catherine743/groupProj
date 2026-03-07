@@ -1,50 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
+const storedSales = JSON.parse(localStorage.getItem("sales")) || [];
+
 const initialState = {
-  products: [],
-  sales: [],
-  threshold: 5, // 🔥 Added threshold
+  products: storedProducts,
+  sales: storedSales,
+  threshold: 5,
 };
 
 const stockSlice = createSlice({
   name: "stock",
   initialState,
   reducers: {
-    // ✅ Add Product
     addProduct: (state, action) => {
-      state.products.push({
-        ...action.payload,
-        sold: 0, // track sold quantity
-      });
+      state.products.push({ ...action.payload, sold: 0 });
+      localStorage.setItem("products", JSON.stringify(state.products));
     },
-
-    // ✅ Update Product (Needed for Edit Page)
     updateProduct: (state, action) => {
-      const index = state.products.findIndex(
-        (p) => p.id === action.payload.id
-      );
-
+      const index = state.products.findIndex(p => p.id === action.payload.id);
       if (index !== -1) {
-        state.products[index] = {
-          ...state.products[index],
-          ...action.payload,
-        };
+        state.products[index] = { ...state.products[index], ...action.payload };
+        localStorage.setItem("products", JSON.stringify(state.products));
       }
     },
-
-    // ✅ Add Sale
     addSale: (state, action) => {
       const { productId, quantity } = action.payload;
-
-      const product = state.products.find(
-        (p) => p.id === productId
-      );
-
+      const product = state.products.find(p => p.id === productId);
       if (product && product.stock >= quantity) {
         product.stock -= quantity;
-        product.sold += quantity; // 🔥 important for dashboard
+        product.sold += quantity;
 
-        const totalAmount = quantity * product.price;
+        const avgPrice = (product.minPrice + product.maxPrice) / 2;
+        const totalAmount = quantity * avgPrice;
 
         state.sales.push({
           id: Date.now(),
@@ -53,15 +41,27 @@ const stockSlice = createSlice({
           totalAmount,
           date: new Date().toISOString(),
         });
+
+        localStorage.setItem("products", JSON.stringify(state.products));
+        localStorage.setItem("sales", JSON.stringify(state.sales));
       }
     },
+    deleteProduct: (state, action) => {
+      state.products = state.products.filter(p => p.id !== action.payload);
+      localStorage.setItem("products", JSON.stringify(state.products));
+    },
+    clearAll: (state) => {
+      state.products = [];
+      state.sales = [];
+      localStorage.removeItem("products");
+      localStorage.removeItem("sales");
+    },
+    setProducts: (state, action) => {
+      state.products = action.payload;
+    }
   },
 });
 
-export const {
-  addProduct,
-  addSale,
-  updateProduct,
-} = stockSlice.actions;
+export const { addProduct, updateProduct, addSale, deleteProduct, setProducts, clearAll } = stockSlice.actions;
 
 export default stockSlice.reducer;

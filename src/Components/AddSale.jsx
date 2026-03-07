@@ -1,13 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addSale } from "../redux/slice/stockSlice";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function AddSale() {
+
   const dispatch = useDispatch();
   const products = useSelector(state => state.stockReducer.products);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const [productId, setProductId] = useState("");
+  const passedProductId = location.state?.productId || "";
+
+  const [productId, setProductId] = useState(passedProductId);
   const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
   const [message, setMessage] = useState("");
 
   const selectedProduct = products.find(
@@ -15,13 +22,14 @@ export default function AddSale() {
   );
 
   const totalAmount =
-    selectedProduct && quantity
-      ? selectedProduct.price * Number(quantity)
+    price && quantity
+      ? Number(price) * Number(quantity)
       : 0;
 
   const handleSale = () => {
-    if (!productId || !quantity) {
-      setMessage("⚠ Please select product and enter quantity");
+
+    if (!productId || !quantity || !price) {
+      setMessage("⚠ Please fill all fields");
       return;
     }
 
@@ -30,60 +38,87 @@ export default function AddSale() {
       return;
     }
 
+    if (
+      Number(price) < selectedProduct.minPrice ||
+      Number(price) > selectedProduct.maxPrice
+    ) {
+      setMessage("❌ Price must be within the price range");
+      return;
+    }
+
     dispatch(
       addSale({
         productId: Number(productId),
         quantity: Number(quantity),
+        price: Number(price),
         totalAmount: totalAmount,
         date: new Date().toISOString()
       })
     );
 
     setMessage("✅ Sale recorded successfully!");
-    setQuantity("");
-    setProductId("");
+
+    navigate("/products");
   };
 
   return (
     <div className="card">
+
       <h3>🛒 Record Sale</h3>
 
-      <select
-        value={productId}
-        onChange={e => {
-          setProductId(e.target.value);
-          setMessage("");
-        }}
-      >
-        <option value="">Select Product</option>
-        {products.map(p => (
-          <option key={p.id} value={p.id}>
-            {p.name}
-          </option>
-        ))}
-      </select>
+      {passedProductId ? (
+        <p>
+          Product: <strong>{selectedProduct?.name}</strong>
+        </p>
+      ) : (
+        <select
+          value={productId}
+          onChange={e => {
+            setProductId(e.target.value);
+            setMessage("");
+          }}
+        >
+          <option value="">Select Product</option>
+
+          {products.map(p => (
+            <option key={p.id} value={p.id}>
+              {p.name}
+            </option>
+          ))}
+        </select>
+      )}
 
       {selectedProduct && (
         <p>
           Available Stock: {selectedProduct.stock} <br />
-          Price: ₹{selectedProduct.price}
+          Price Range: ₹{selectedProduct.minPrice} - ₹{selectedProduct.maxPrice}
         </p>
       )}
 
       <input
         type="number"
-        placeholder="Quantity"
-        value={quantity}
-        onChange={e => setQuantity(e.target.value)}
+        placeholder="Enter Selling Price"
+        value={price}
+        onChange={(e)=>setPrice(e.target.value)}
       />
 
-      {quantity && selectedProduct && (
+      <input
+        type="number"
+        placeholder="Quantity"
+        value={quantity}
+        onChange={(e)=>setQuantity(e.target.value)}
+      />
+
+      {price && quantity && (
         <p>Total Amount: ₹{totalAmount}</p>
       )}
 
-      <button onClick={handleSale}>Sell</button>
+      <button onClick={handleSale}>
+        Sell
+      </button>
 
       {message && <p>{message}</p>}
+
     </div>
   );
 }

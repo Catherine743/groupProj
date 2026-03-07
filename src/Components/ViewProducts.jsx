@@ -1,17 +1,44 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { deleteProduct, setProducts } from "../redux/slice/stockSlice";
 
 function ViewProducts() {
-    const { products, threshold } = useSelector(
-        (state) => state.stockReducer
-    );
+    const { products, threshold } = useSelector((state) => state.stockReducer);
     const navigate = useNavigate();
-    const [filter, setFilter] = useState("");
+    const dispatch = useDispatch();
 
-    const filteredProducts = products.filter((product) =>
-        product.name.toLowerCase().includes(filter.toLowerCase())
-    );
+    const [filter, setFilter] = useState("");
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
+
+    // Load products from localStorage on component mount
+    useEffect(() => {
+        const storedProducts = localStorage.getItem("products");
+        if (storedProducts) {
+            dispatch(setProducts(JSON.parse(storedProducts)));
+        }
+    }, [dispatch]);
+
+    // Persist products to localStorage whenever products change
+    useEffect(() => {
+        localStorage.setItem("products", JSON.stringify(products));
+    }, [products]);
+
+    const filteredProducts = products.filter((product) => {
+        const pMin = product.minPrice;
+        const pMax = product.maxPrice;
+        const fMin = minPrice ? parseInt(minPrice) : 0;
+        const fMax = maxPrice ? parseInt(maxPrice) : Infinity;
+
+        // Price range overlap
+        const isOverlap = pMax >= fMin && pMin <= fMax;
+
+        // Search filter
+        const matchesSearch = product.name.toLowerCase().includes(filter.toLowerCase());
+
+        return isOverlap && matchesSearch;
+    });
 
     return (
         <div className="container mt-4">
@@ -19,14 +46,31 @@ function ViewProducts() {
 
             <input
                 placeholder="Search product..."
+                value={filter}
                 onChange={(e) => setFilter(e.target.value)}
             />
+
+            <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+                <input
+                    type="number"
+                    placeholder="Min Price"
+                    value={minPrice}
+                    onChange={(e) => setMinPrice(e.target.value)}
+                />
+
+                <input
+                    type="number"
+                    placeholder="Max Price"
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                />
+            </div>
 
             <table className="table mt-3">
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Price</th>
+                        <th>Price Range</th>
                         <th>Stock</th>
                         <th>Sold</th>
                         <th>Action</th>
@@ -36,7 +80,9 @@ function ViewProducts() {
                     {filteredProducts.map((product) => (
                         <tr key={product.id}>
                             <td>{product.name}</td>
-                            <td>{product.price}</td>
+                            <td>
+                                ₹{product.minPrice} - ₹{product.maxPrice}
+                            </td>
                             <td>
                                 {product.stock}
                                 {product.stock <= threshold && (
@@ -45,12 +91,23 @@ function ViewProducts() {
                             </td>
                             <td>{product.sold}</td>
                             <td>
-                                <button onClick={() => navigate("/addsale")}>
-                                    Sell
-                                </button>
-                                <button onClick={() => navigate(`/edit/${product.id}`)}>
-                                    Edit
-                                </button>
+                                <div style={{ display: "flex", gap: "10px" }}>
+                                    <button
+                                        onClick={() =>
+                                            navigate("/addsale", { state: { productId: product.id } })
+                                        }
+                                    >
+                                        Sell
+                                    </button>
+
+                                    <button onClick={() => navigate(`/edit/${product.id}`)}>
+                                        Edit
+                                    </button>
+
+                                    <button onClick={() => dispatch(deleteProduct(product.id))}>
+                                        Delete
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     ))}
