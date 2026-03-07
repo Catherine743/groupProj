@@ -1,63 +1,141 @@
+/* ===========================
+   Variables & Base Styles
+=========================== */
+:root {
+  --primary: #4a6cf7;
+  --primary-dark: #3b57d0;
+  --secondary: #1e293b;
+  --accent: #0f4c81;
+  --bg-light: #f8fafc;
+  --bg-card: #fff;
+  --text-main: #555;
+  --text-light: #cbd5f5;
+  --shadow: rgba(0,0,0,0.08);
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #f0f4ff, #e6ecff);
 }
 
-/* Navbar */
+/* ===========================
+   Navbar
+=========================== */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 40px;
-  background: white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background: var(--bg-card);
+  box-shadow: 0 4px 12px var(--shadow);
 }
 
-.logo {
-  color: #4a6cf7;
-  margin: 0;
+.logo, .logo-link {
+  color: var(--primary);
+  cursor: pointer;
+  margin-bottom: 30px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .nav-links a {
-  margin-left: 20px;
   text-decoration: none;
-  color: #555;
+  color: var(--text-light);
+  padding: 10px;
+  border-radius: 5px;
   font-weight: 500;
   transition: 0.3s;
 }
 
 .nav-links a:hover {
-  color: #4a6cf7;
+  background: #334155;
 }
 
-.nav-links .active {
-  color: #4a6cf7;
-  border-bottom: 2px solid #4a6cf7;
+.nav-links a.active,
+.active {
+  background: var(--primary);
+  color: white !important;
 }
 
-/* Layout */
+/* ===========================
+   Layout
+=========================== */
+.layout {
+  display: flex;
+}
+
+.sidebar {
+  width: 220px;
+  background: var(--secondary);
+  color: white;
+  padding: 20px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  background: var(--bg-light);
+  min-height: 100vh;
+}
+
 .app-container {
   max-width: 1100px;
   margin: 40px auto;
   padding: 20px;
 }
 
-/* Card */
-.card, .dashboard-card {
-  background: white;
+/* ===========================
+   Cards
+=========================== */
+.card, .dashboard-card, .feature-card {
+  background: var(--bg-card);
   padding: 25px;
   border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px var(--shadow);
   margin-bottom: 20px;
   transition: 0.3s;
 }
 
-.card:hover {
+.card:hover, .feature-card:hover {
   transform: translateY(-3px);
 }
 
-/* Inputs */
+/* Feature Card Overlay */
+.feature-card {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  width: 270px;
+  text-align: center;
+  color: white;
+  transition: 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+.feature-card h3 {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.feature-card p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ===========================
+   Inputs & Selects
+=========================== */
 input, select {
   width: 100%;
   padding: 12px;
@@ -69,16 +147,18 @@ input, select {
 }
 
 input:focus, select:focus {
-  border-color: #4a6cf7;
+  border-color: var(--primary);
   outline: none;
   box-shadow: 0 0 0 3px rgba(74,108,247,0.15);
 }
 
-/* Buttons */
-button {
+/* ===========================
+   Buttons
+=========================== */
+button, .start-btn {
   padding: 12px;
   margin-top: 10px;
-  background: #4a6cf7;
+  background: var(--primary);
   color: white;
   border: none;
   border-radius: 8px;
@@ -88,22 +168,38 @@ button {
 }
 
 button:hover {
-  background: #3b57d0;
+  background: var(--primary-dark);
 }
 
-/* Table */
+.start-btn {
+  padding: 15px 40px;
+  font-size: 18px;
+  border-radius: 40px;
+  font-weight: bold;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.start-btn:hover {
+  transform: translateY(-4px);
+  background: #f2f6ff;
+  color: var(--accent);
+}
+
+/* ===========================
+   Tables
+=========================== */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  background: white;
+  background: var(--bg-card);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
 th {
-  background: #4a6cf7;
+  background: var(--primary);
   color: white;
   padding: 12px;
   text-align: left;
@@ -118,183 +214,67 @@ tr:hover {
   background: #f7f9ff;
 }
 
-/* Low stock */
-.low-stock {
-  color: red;
-  font-weight: bold;
-}
-
-/* Messages */
+/* ===========================
+   Messages
+=========================== */
 .success {
   color: green;
   font-weight: bold;
 }
 
-.error {
+.error, .low-stock {
   color: red;
   font-weight: bold;
 }
 
-
-
-.logo{
-  margin-bottom:30px;
+/* ===========================
+   Landing Page
+=========================== */
+.landing-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f4c81, #1e90ff, #63b3ff);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
 }
 
-.nav-links{
-  display:flex;
-  flex-direction:column;
-  gap:15px;
+.hero-section {
+  text-align: center;
+  color: white;
+  max-width: 900px;
+  margin-bottom: 70px;
 }
 
-.nav-links a{
-  text-decoration:none;
-  color:#cbd5f5;
-  padding:10px;
-  border-radius:5px;
+.hero-section h1 {
+  font-size: 50px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-.nav-links a:hover{
-  background:#334155;
+.hero-section p {
+  font-size: 20px;
+  line-height: 1.7;
+  margin-bottom: 35px;
+  opacity: 0.95;
 }
 
-.active{
-  background:#3b82f6;
-  color:white !important;
+/* ===========================
+   Features Section
+=========================== */
+.features-section {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  flex-wrap: wrap;
 }
 
-/* Layout */
-.layout{
-  display:flex;
-}
-
-/* Sidebar */
-.sidebar{
-  width:220px;
-  background:#1e293b;
-  color:white;
-  padding:20px;
-}
-
-/* Main Content */
-.main-content{
-  flex:1;
-  padding:30px;
-  background:#f8fafc;
-  min-height:100vh;
-}
-
-
-/* Landing Page */
-
-.landing-container{
-  min-height:100vh;
-  background: linear-gradient(135deg,#0f4c81,#1e90ff,#63b3ff);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:40px;
-  font-family:'Segoe UI', sans-serif;
-}
-
-/* Hero Section */
-
-.hero-section{
-  text-align:center;
-  color:white;
-  max-width:900px;
-  margin-bottom:70px;
-}
-
-.hero-section h1{
-  font-size:50px;
-  margin-bottom:20px;
-  font-weight:700;
-  letter-spacing:1px;
-}
-
-.hero-section p{
-  font-size:20px;
-  line-height:1.7;
-  margin-bottom:35px;
-  opacity:0.95;
-}
-
-/* Get Started Button */
-
-.start-btn{
-  padding:15px 40px;
-  font-size:18px;
-  border:none;
-  border-radius:40px;
-  background:white;
-  color:#0f4c81;
-  font-weight:bold;
-  cursor:pointer;
-  transition:all 0.3s ease;
-  box-shadow:0 8px 20px rgba(0,0,0,0.25);
-}
-
-.start-btn:hover{
-  transform:translateY(-4px);
-  background:#f2f6ff;
-}
-
-/* Features Section */
-
-.features-section{
-  display:flex;
-  justify-content:center;
-  gap:35px;
-  flex-wrap:wrap;
-}
-
-/* Feature Cards */
-
-.feature-card{
-  background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(10px);
-  border-radius:15px;
-  padding:30px;
-  width:270px;
-  text-align:center;
-  color:white;
-  border:1px solid rgba(255,255,255,0.2);
-  transition:0.3s;
-}
-
-.feature-card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 12px 30px rgba(0,0,0,0.25);
-}
-
-.feature-card h3{
-  margin-bottom:15px;
-  font-size:22px;
-}
-
-.feature-card p{
-  font-size:15px;
-  line-height:1.6;
-}
-
-.landing-main{
-  width:100%;
-}
-
-.logo-link{
-  text-decoration:none;
-}
-
-.logo{
-  color:white;
-  cursor:pointer;
-  margin-bottom:30px;
-}
-.chart:focus {
-  outline: none;
-}
+/* ===========================
+   Chart Focus Fix
+=========================== */
+.chart:focus,
 .chart *:focus {
   outline: none;
 }
