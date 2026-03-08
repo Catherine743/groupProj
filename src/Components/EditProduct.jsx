@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateProduct } from "../redux/slice/stockSlice";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function EditProduct() {
   const { id } = useParams();
