@@ -21,33 +21,49 @@ export default function Dashboard() {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
-  // Total Revenue
+  // Total Revenue (All Time)
   const totalRevenue = useMemo(() =>
     sales.reduce((acc, s) => acc + s.totalAmount, 0),
     [sales]
   );
 
-  // Monthly Sales Data
+  // 1️⃣ Filter sales of selected month
+  const monthlySales = useMemo(() => {
+    return sales.filter(sale => {
+      const d = new Date(sale.date);
+
+      return (
+        d.getMonth() === selectedMonth &&
+        d.getFullYear() === selectedYear
+      );
+    });
+  }, [sales, selectedMonth, selectedYear]);
+
+
+
+  // 2️⃣ Monthly Revenue
+  const monthlyRevenue = useMemo(() => {
+    return monthlySales.reduce(
+      (acc, sale) => acc + sale.totalAmount,
+      0
+    );
+  }, [monthlySales]);
+
+
+
+  // 3️⃣ Product wise monthly data
   const salesDataForMonth = useMemo(() => {
 
     const data = {};
 
-    sales.forEach(sale => {
+    monthlySales.forEach(sale => {
 
-      const d = new Date(sale.date);
-
-      if (
-        d.getMonth() === selectedMonth &&
-        d.getFullYear() === selectedYear
-      ) {
-
-        if (!data[sale.productId]) {
-          data[sale.productId] = { quantity: 0, revenue: 0 };
-        }
-
-        data[sale.productId].quantity += sale.quantity;
-        data[sale.productId].revenue += sale.totalAmount;
+      if (!data[sale.productId]) {
+        data[sale.productId] = { quantity: 0, revenue: 0 };
       }
+
+      data[sale.productId].quantity += sale.quantity;
+      data[sale.productId].revenue += sale.totalAmount;
 
     });
 
@@ -67,24 +83,19 @@ export default function Dashboard() {
       })
       .filter(Boolean);
 
-  }, [sales, products, selectedMonth, selectedYear]);
+  }, [monthlySales, products]);
 
 
 
-  const { sortedData, mostSold, leastSold, monthlyRevenue } = useMemo(() => {
+  // 4️⃣ Sorting + Most/Least sold
+  const { sortedData, mostSold, leastSold } = useMemo(() => {
 
     if (!salesDataForMonth.length)
       return {
         sortedData: [],
         mostSold: null,
-        leastSold: null,
-        monthlyRevenue: 0
+        leastSold: null
       };
-
-    const monthlyRevenue = salesDataForMonth.reduce(
-      (acc, s) => acc + s.revenue,
-      0
-    );
 
     const sorted = [...salesDataForMonth];
 
@@ -111,14 +122,17 @@ export default function Dashboard() {
     return {
       sortedData,
       mostSold,
-      leastSold,
-      monthlyRevenue
+      leastSold
     };
 
   }, [salesDataForMonth, sortType]);
 
 
-  const profit = totalRevenue * 0.2;
+
+  // Profit (20%)
+  const profit = monthlyRevenue * 0.2;
+
+
 
   const COLORS = [
     "#0088FE",
@@ -134,6 +148,7 @@ export default function Dashboard() {
   ];
 
   const years = [2023, 2024, 2025, 2026];
+
 
 
   return (
@@ -222,7 +237,6 @@ export default function Dashboard() {
         />
 
       </BarChart>
-
 
       <hr />
 
