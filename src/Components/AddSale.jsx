@@ -60,7 +60,7 @@ export default function AddSale() {
 
   return (
     <div className="card">
-      <h3>🛒 Record Sale</h3>
+      <h3>Record Sale</h3>
 
       {passedProductId ? (
         <p>Product: <strong>{selectedProduct?.name || "Unknown"}</strong></p>
