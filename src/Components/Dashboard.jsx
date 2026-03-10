@@ -250,7 +250,7 @@ export default function Dashboard() {
           label
         >
 
-          {sortedData.map((index) => (
+          {sortedData.map((entry, index) => (
             <Cell
               key={index}
               fill={COLORS[index % COLORS.length]}
