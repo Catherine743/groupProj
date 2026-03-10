@@ -300,6 +300,13 @@ td {
   color: var(--text-main);
 }
 
+.about-left img {
+  width: 350px;
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
 /* STATS */
 
 .stats {

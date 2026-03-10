@@ -194,7 +194,7 @@ function LandingPage() {
 
         <div className="about-left">
           <img
-            src=""
+            src="https://img.freepik.com/free-vector/shopping-online-background_1156-96.jpg"
             alt="inventory"
           />
         </div>
