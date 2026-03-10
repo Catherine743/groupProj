@@ -15,13 +15,13 @@ export default function AddSale() {
   const [price, setPrice] = useState("");
   const [message, setMessage] = useState("");
 
-  const selectedProduct = useMemo(
-    () => products.find(p => p.id === Number(productId)),
+  const selectedProduct = useMemo(() => 
+    products.find(p => p.id === Number(productId)),
     [productId, products]
   );
 
-  const totalAmount = useMemo(
-    () => (price && quantity ? Number(price) * Number(quantity) : 0),
+  const totalAmount = useMemo(() => 
+    (price && quantity ? Number(price) * Number(quantity) : 0),
     [price, quantity]
   );
 
