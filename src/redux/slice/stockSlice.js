@@ -32,7 +32,7 @@ const stockSlice = createSlice({
     },
 
     addSale: (state, action) => {
-      const { productId, quantity } = action.payload;
+      const { productId, quantity, totalAmount } = action.payload;
       const product = state.products.find(p => p.id === productId);
       if (!product || product.stock < quantity) return;
 
@@ -43,7 +43,7 @@ const stockSlice = createSlice({
         id: Date.now(),
         productId,
         quantity,
-        totalAmount,
+        totalAmount : Number(totalAmount),
         date: new Date().toISOString(),
       });
 
