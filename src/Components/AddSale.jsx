@@ -31,17 +31,17 @@ export default function AddSale() {
       return;
     }
     if (!selectedProduct) {
-      setMessage("❌ Product not found");
+      setMessage("Product not found");
       return;
     }
     const qty = Number(quantity);
     const prc = Number(price);
     if (qty > selectedProduct.stock) {
-      setMessage("❌ Not enough stock available");
+      setMessage("Not enough stock available");
       return;
     }
     if (prc < selectedProduct.minPrice || prc > selectedProduct.maxPrice) {
-      setMessage("❌ Price must be within product's price range");
+      setMessage("Price must be within product's price range");
       return;
     }
 
@@ -54,7 +54,7 @@ export default function AddSale() {
       })
     );
 
-    setMessage("✅ Sale recorded successfully!");
+    setMessage("Sale recorded successfully!");
     navigate("/products");
   };
 
