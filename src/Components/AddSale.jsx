@@ -27,7 +27,7 @@ export default function AddSale() {
 
   const handleSale = () => {
     if (!productId || !quantity || !price) {
-      setMessage("⚠ Please fill all fields");
+      setMessage("Please fill all fields");
       return;
     }
     if (!selectedProduct) {

@@ -39,9 +39,6 @@ const stockSlice = createSlice({
       product.stock -= quantity;
       product.sold += quantity;
 
-      const avgPrice = (product.minPrice + product.maxPrice) / 2;
-      const totalAmount = quantity * avgPrice;
-
       state.sales.push({
         id: Date.now(),
         productId,
