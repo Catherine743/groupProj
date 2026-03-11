@@ -160,7 +160,7 @@ function LandingPage() {
         <div className="features-container">
 
           <div className="feature-card">
-            <h3>📦 Product Management</h3>
+            <h3>Product Management</h3>
             <p>
               Easily add, edit, update, and delete warehouse products with
               a clean and simple interface.
@@ -168,7 +168,7 @@ function LandingPage() {
           </div>
 
           <div className="feature-card">
-            <h3>📊 Stock Monitoring</h3>
+            <h3>Stock Monitoring</h3>
             <p>
               Track real-time stock levels and receive alerts for low
               inventory items.
@@ -176,7 +176,7 @@ function LandingPage() {
           </div>
 
           <div className="feature-card">
-            <h3>💰 Sales Tracking</h3>
+            <h3>Sales Tracking</h3>
             <p>
               Record product sales and automatically update warehouse
               inventory.

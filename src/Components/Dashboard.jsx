@@ -220,7 +220,7 @@ export default function Dashboard() {
 
       <h3> Sales Chart</h3>
 
-      <BarChart
+      {salesDataForMonth.length > 0 ?<BarChart
         width={500}
         height={300}
         data={sortedData}
@@ -234,13 +234,14 @@ export default function Dashboard() {
           fill="#4a6cf7"
         />
 
-      </BarChart>
+      </BarChart>: <p className="">No sales data available.</p>}
+      
 
       <hr />
 
       <h3> Revenue Distribution</h3>
 
-      <PieChart width={500} height={350}>
+      { salesDataForMonth.length > 0?<PieChart width={500} height={350}>
 
         <Pie
           data={sortedData}
@@ -250,7 +251,7 @@ export default function Dashboard() {
           label
         >
 
-          {sortedData.map((entry, index) => (
+          {sortedData.map((entry,index) => (
             <Cell
               key={index}
               fill={COLORS[index % COLORS.length]}
@@ -263,7 +264,7 @@ export default function Dashboard() {
 
         <Tooltip />
 
-      </PieChart>
+      </PieChart>: <p className="">No sales data available.</p>}
 
     </div>
   );
