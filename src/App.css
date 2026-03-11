@@ -183,6 +183,10 @@ td {
   width: 100%;
 }
 
+.landing-image{
+  filter: hue-rotate(330deg);
+}
+
 /* HERO SECTION */
 
 .hero {
