@@ -337,3 +337,25 @@ td {
 .recharts-wrapper *:focus {
   outline: none;
 }
+
+.dashboard-stats{
+  display:flex;
+  gap:30px;
+  margin-bottom:20px;
+  font-weight: bold;
+  color: white;
+}
+.dashboard-stats p{
+  background-color: #3b82f6;
+  padding:15px;
+  border-radius:10px;
+  flex:1;
+  text-align:center;
+}
+.stat{
+  display:block;
+  font-weight: lighter;
+  font-size:14px;
+  color:#fdfeff;
+  margin-bottom:5px;
+}

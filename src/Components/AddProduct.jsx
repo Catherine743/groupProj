@@ -30,23 +30,23 @@ export default function AddProduct() {
     const stk = Number(stock);
 
     if (!trimmedName || !minPrice || !maxPrice || !stock) {
-      alert("⚠ Please fill all fields");
+      alert("Please fill all fields");
       return;
     }
 
     if (min > max) {
-      alert("⚠ Max Price must be greater than or equal to Min Price");
+      alert("Max Price must be greater than or equal to Min Price");
       return;
     }
 
     if (stk < 0) {
-      alert("⚠ Stock cannot be negative");
+      alert("Stock cannot be negative");
       return;
     }
 
     dispatch(
       addProduct({
-        id: Date.now(),
+        d: Date.now(),
         name: trimmedName,
         minPrice: min,
         maxPrice: max,
